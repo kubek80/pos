@@ -13,7 +13,7 @@ Clicking on names of products inside checkout area will remove item (one click r
 ![Alt text](readme/02.png?raw=true "POS")
 
 ## Blocking UI during call
-During communication with ws UI is blocked
+During communication with ws UI is blocked. Clicking on 'New' will unblock UI.
 ![Alt text](readme/03.png?raw=true "POS")
 
 ## Development server
