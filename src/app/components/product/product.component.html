@@ -1,0 +1,10 @@
+<button class="product" (click)="addToCart()" [disabled]="status !== 'ready'"
+        [ngClass]="{'disabled': status !== 'ready', 'active': status === 'ready'}">
+  <div class="image-wrapper">
+      <img src={{product.image}} />
+  </div>
+  <div class="summary-wrapper">
+      <div class="name">{{product.name}}</div>
+      <div class="price">{{product.price | currency: '$'}}</div>
+  </div>
+</button>

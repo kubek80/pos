@@ -1,0 +1,65 @@
+.item {
+  border: 1px solid grey;
+  border-radius: 3px;
+  margin-bottom: 7px;
+  padding: 7px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.item:hover {
+  background-color: brown;
+  color: white;
+}
+
+.item-name {
+  float: left;
+  width: 150px;
+}
+
+.item-amount {
+  float: left;
+}
+
+.item-total {
+  float: right;
+}
+
+.charge, .new {
+  font-weight: 200;
+  width: 100%;
+  padding: 15px 10px;
+  background-color: #3295fb;
+  color: white;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.charge:hover, .new:hover {
+  background-color: #2a639e;
+}
+
+.charge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.heading {
+  margin-top: 0;
+  font-weight: 200;
+}
+
+.success-message {
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #005000;
+  border-radius: 5px;
+  color: #005000;
+  background-color: #93ef75;
+}

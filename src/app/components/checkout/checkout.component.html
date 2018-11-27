@@ -1,0 +1,32 @@
+<div class="items">
+  <h1 class="heading">Current purchase</h1>
+  <hr />
+  <button *ngFor="let item of cartItems"
+          [disabled]="status !== 'ready'"
+          class="item clearfix"
+          (click)="removeItem(item.id)">
+    <div class="item-name">{{item.name}}</div>
+    <div class="item-amount"> x {{item.items}}</div>
+    <div class="item-total">{{item.total | currency: '$'}}</div>
+  </button>
+
+  <div *ngIf="(!cartItems || cartItems.length === 0) && status !== 'success'">
+    No items added
+  </div>
+
+  <div *ngIf="status === 'success'" class="success-message">
+    Purchase successful
+  </div>
+
+
+</div>
+
+<div class="total">
+  <button *ngIf="total > 0 && status !== 'success'" (click)="charge()" class="charge" [disabled]="status !== 'ready'">
+    Charge {{total | currency: '$'}}
+  </button>
+
+  <button class="charge" *ngIf="status === 'success'" (click)="new()">
+    New
+  </button>
+</div>
