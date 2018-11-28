@@ -11,7 +11,7 @@ export class StatusService {
     this.status = new BehaviorSubject('ready');
   }
 
-  setStatus(status) {
+  setStatus(status: string) {
     this.status.next(status);
   }
 }

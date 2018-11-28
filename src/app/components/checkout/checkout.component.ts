@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { retry } from 'rxjs/internal/operators';
+
 import { CheckoutService, WebsocketService, StatusService } from 'src/app/services';
 import { PRODUCTS } from 'src/app/products.const';
+import { STATUSES } from 'src/app/status.const';
+import { CheckoutProduct, CheckoutItem, Product, Message } from 'src/app/interfaces';
 
 
 @Component({
@@ -12,54 +16,69 @@ export class CheckoutComponent implements OnInit {
   cartItems: Array<any>;
   total: number;
   status: string;
+  statuses = STATUSES;
 
   constructor(
-    private service: CheckoutService,
-    private connection: WebsocketService,
+    private checkoutService: CheckoutService,
+    private websocketService: WebsocketService,
     private statusService: StatusService
   ) {}
 
   ngOnInit() {
-    this.service.checkout.subscribe(items => {
-      this.cartItems = this.updateCheckout(items);
-      this.total = this.getTotal(this.cartItems);
-    });
+    this.checkoutService.checkout.subscribe(items => this.updateTotalAndCartItems(items));
 
-    this.connection.socket.subscribe(message => {
-      this.statusService.setStatus('success');
-      this.service.clearCart();
-    });
+    this.websocketService.socket.pipe(retry(3)).subscribe(
+      () => this.socketSuccess(),
+      () => this.socketError(),
+      () => console.log('connection completed')
+    );
 
-    this.statusService.status.subscribe(status => {
-      this.status = status;
-    });
+    this.statusService.status.subscribe(status => this.updateStatus(status));
   }
 
-  updateCheckout(items): Array<any> {
+  updateTotalAndCartItems(items): void {
+    this.cartItems = this.updateCheckout(items);
+    this.total = this.getTotal(this.cartItems);
+  }
+
+  socketSuccess(): void {
+    this.statusService.setStatus(this.statuses.SUCCESS);
+    this.checkoutService.clearCart();
+  }
+
+  socketError(): void {
+    this.statusService.setStatus(this.statuses.ERROR);
+  }
+
+  updateStatus(status: string) {
+    this.status = status;
+  }
+
+  updateCheckout(items: Array<CheckoutItem>): Array<CheckoutProduct> {
     return items.map(item => {
-      const info = PRODUCTS.find(el => item.id === el.id);
+      const info: Product = PRODUCTS.find(el => item.id === el.id);
       const total = Math.round(100 * info.price * item.items) / 100;
       return Object.assign({}, item, { total }, info);
     });
   }
 
-  getTotal(items): number {
+  getTotal(items: Array<CheckoutProduct>): number {
     return items.reduce((total, item) => {
       return Math.round( 100 * (total + item.total)) / 100;
     }, 0);
   }
 
   removeItem(id): void {
-    this.service.removeFromCart(id);
+    this.checkoutService.removeFromCart(id);
   }
 
-  charge() {
-    this.statusService.setStatus('pending');
-    this.connection.send({ event: 'purchase', amount: this.total });
+  charge(): void {
+    this.statusService.setStatus(this.statuses.PENDING);
+    this.websocketService.send(<Message>{ event: 'purchase', amount: this.total });
   }
 
-  new() {
-    this.statusService.setStatus('ready');
+  new(): void {
+    this.statusService.setStatus(this.statuses.READY);
   }
 
 }

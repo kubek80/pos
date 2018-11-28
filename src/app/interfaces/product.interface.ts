@@ -4,3 +4,11 @@ export interface Product {
     image: string;
     price: number;
 }
+
+export interface CheckoutItem {
+  total: number;
+  items: number;
+}
+
+export interface CheckoutProduct extends Product, CheckoutItem {
+}

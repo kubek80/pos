@@ -8,6 +8,5 @@ import { Product } from './interfaces';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pos';
   products: Array<Product> = PRODUCTS;
 }

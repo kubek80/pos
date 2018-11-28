@@ -1,6 +1,7 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {Product} from 'src/app/interfaces';
-import {CheckoutService, StatusService} from 'src/app/services';
+import { Component, OnInit, Input } from '@angular/core';
+import { Product } from 'src/app/interfaces';
+import { CheckoutService, StatusService } from 'src/app/services';
+import { STATUSES } from 'src/app/status.const';
 
 @Component({
   selector: 'app-product',
@@ -11,9 +12,10 @@ export class ProductComponent implements OnInit {
   @Input() product: Product;
 
   status: string;
+  statuses = STATUSES;
 
   constructor(
-    private service: CheckoutService,
+    private checkoutService: CheckoutService,
     private statusService: StatusService
   ) {}
 
@@ -23,8 +25,8 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  addToCart() {
-    this.service.addToCart(this.product.id);
+  addToCart(): void {
+    this.checkoutService.addToCart(this.product.id);
   }
 
 }

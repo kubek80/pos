@@ -16,10 +16,17 @@ Clicking on names of products inside checkout area will remove item (one click r
 During communication with ws UI is blocked. Clicking on 'New' will unblock UI.
 ![Alt text](readme/03.png?raw=true "POS")
 
+## Basic tests
+I've some component tests to checkout.component and 2 view test to app.component
+![Alt text](readme/04.png?raw=true "POS")
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Test runner
+
+Run `ng test` to run karma
 
 ## Further help
 

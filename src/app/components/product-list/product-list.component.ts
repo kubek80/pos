@@ -8,7 +8,4 @@ import { Product } from 'src/app/interfaces';
 })
 export class ProductListComponent {
   @Input() products: Array<Product>;
-
-  constructor() { }
-
 }
