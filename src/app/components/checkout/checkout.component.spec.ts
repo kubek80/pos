@@ -5,6 +5,7 @@ import { CheckoutComponent } from './checkout.component';
 import { CheckoutService, WebsocketService, StatusService } from 'src/app/services';
 
 import { STATUSES } from '../../status.const';
+import {CheckoutProduct} from "../../interfaces/product.interface";
 
 describe('CheckoutComponent', () => {
   let component: CheckoutComponent;
@@ -95,7 +96,7 @@ describe('CheckoutComponent', () => {
 
     describe('updateCheckout()', () => {
       it('should decorate checkout items with product information and product total', () => {
-        const mock = [{ id: '1', items: 3 }, { id: '2', items: 2 }];
+        const mock = [{ id: '1', items: 3, total: 0 }, { id: '2', items: 2, total: 0 }];
         const expectation = [
           { id: '1', image: 'assets/avocado.png', items: 3, name: 'Avocado', price: 5.4, total: 16.2},
           { id: '2', image: 'assets/chocolate-strawberry.png', items: 2, name: 'Chocolate', price: 6.4, total: 12.8 }
@@ -107,7 +108,10 @@ describe('CheckoutComponent', () => {
 
     describe('getTotal()', () => {
       it('should calculate total', () => {
-        const mock = [{ total: 3 }, { total: 4 }];
+        const mock = [
+          { id: '1', image: 'assets/avocado.png', items: 3, name: 'Avocado', price: 1, total: 3},
+          { id: '2', image: 'assets/chocolate-strawberry.png', items: 2, name: 'Chocolate', price: 2, total: 4 }
+        ];
         const test = component.getTotal(mock);
         expect(test).toBe(7);
       });
