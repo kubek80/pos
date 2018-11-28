@@ -3,6 +3,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 Node version used was 10.10
 
+# GITHUB hosted version:
+## https://kubek80.github.io/
+(it required to switch from ws: -> wss: to avoid mixed content)
+
 ## Frame
 I've created frame that would fit in tablet:
 ![Alt text](readme/01.png?raw=true "POS")
