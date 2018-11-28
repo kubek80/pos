@@ -6,6 +6,7 @@ export interface Product {
 }
 
 export interface CheckoutItem {
+  id: string;
   total: number;
   items: number;
 }

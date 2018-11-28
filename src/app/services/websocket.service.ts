@@ -10,7 +10,7 @@ export class WebsocketService {
   public socket: WebSocketSubject<Message>;
 
   constructor() {
-    this.socket = webSocket('ws://echo.websocket.org/');
+    this.socket = webSocket('wss://echo.websocket.org');
   }
 
   public send = (message: Message) => {
